@@ -1,0 +1,201 @@
+a {
+  color: #666;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+
+
+body {
+  background-color: #eee;
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Arial, sans-serif;
+}
+
+pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+}
+
+code {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
+}
+
+blockquote {
+  margin-left: 0px;
+  border-left: 5px solid #eee;
+  padding-left: 10px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #aaa;
+}
+h1, h2, h3, h4, strong {
+  color: #666;
+}
+
+.loading {
+  margin: auto;
+  width: 300px;
+  /* height: 10px; */
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  color: #42b983;
+  padding-bottom: 5px;
+}
+
+.loading:after,
+.loading:before {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  height: 5px;
+  width: 100px;
+  animation: loading infinite 2s ease-in-out;
+  background-color: #42b983;
+}
+
+.loading:before {}
+
+.loading:after {
+  animation-delay: 0.2s;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-150px);
+    width: 100px;
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(125px);
+    width: 50px;
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(350px);
+    width: 100px;
+    opacity: 0;
+  }
+}
+
+#app {
+  max-width: 80%;
+  margin: auto;
+}
+
+.text-pop-up-top {
+  -webkit-animation: text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  font-size: 120px;
+  color: #fff;
+}
+
+.header {
+  text-align: center; 
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 100%;
+}
+
+.colors {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.colors-blue {
+  height: 100%;
+  background-image: url("//hbfile.b0.upaiyun.com/img/home/banner/298258a2967dbfcf3cdc4fdcc6daa472ce1c2e2bd35d6");
+  opacity: 1;
+  background-size: cover;
+}
+
+@media screen and (max-width: 768px) {
+  #app {
+    max-width: 100%;
+  }
+  .text-pop-up-top {
+    font-size: 70px;
+  }
+  .post {
+    margin-top: 5px;
+  }
+  .post-content-wrap {
+    flex-wrap: wrap;
+  }
+  .post-img {
+    width: 100%!important;
+    max-height: 200px;
+    overflow: hidden;
+    padding: 5px;
+  }
+  .post-img img {
+    width: 100%;
+    max-height: none!important;
+  }
+}
+
+@media screen and (min-width: 1020px) {
+  #app {
+    width: 60%;
+  }
+  .post-comments {
+    float: right!important;
+  }
+}
+
+@-webkit-keyframes text-pop-up-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    text-shadow: none;
+  }
+  100% {
+    -webkit-transform: translateY(-50px);
+    transform: translateY(-50px);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc, 0 50px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes text-pop-up-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    text-shadow: none;
+  }
+  100% {
+    -webkit-transform: translateY(-50px);
+    transform: translateY(-50px);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc, -2px 2px 10px rgba(0, 0, 0, 0.2), 0 50px 30px rgba(0, 0, 0, 0.3);
+  }
+}
