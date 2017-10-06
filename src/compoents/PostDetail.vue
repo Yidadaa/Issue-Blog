@@ -5,13 +5,11 @@
       <div id="pd-content" v-if="true">
         <div id="pd-info">
           <div id="pd-wrap">
-            <div id="pd-title"># {{post.title}} #</div>
-            <div id="pd-desc"></div>
+            <div id="pd-title">{{post.title}}</div>
+            <div id="pd-desc"># {{post.milestone.title}} #</div>
           </div>
         </div>
-        <div id="pd-content">
-          
-        </div>
+        <div id="pd-html" v-html="content"></div>
       </div>
     </div>
   </div>
@@ -22,7 +20,14 @@ import marked from 'marked'
 export default {
   props: ['post'],
   data () {
-    comments: []
+    return {
+      comments: []
+    }
+  },
+  computed: {
+    content () {
+      return this.post && this.post.body && marked(this.post.body)
+    }
   },
   methods: {
     close () {
@@ -30,19 +35,33 @@ export default {
     },
   },
   onCreated () {
-
+    /**Todo:
+     * - 加载评论
+     */
   }
 }
 </script>
 
 <style>
 @media screen and (max-width: 768px){
+  #pd-wrap {
+    width: 85%;
+    box-sizing: border-box;
+  }
   #pd-info {
-    height: 30%;
     width: 100%;
   }
   #pd-content {
     flex-wrap: wrap;
+    overflow-y: scroll;
+  }
+  #pd-html {
+    padding: 0px 15px;
+    line-height: 24px;
+  }
+  #pd-html pre {
+    overflow-x: scroll;
+    width: 100%;
   }
   #pd-container {
     height: 100%;
@@ -50,6 +69,8 @@ export default {
   }
   #pd-list {
     height: 70%;
+  }
+  #pd-title {
   }
 }
 @media screen and (min-width: 768px){
@@ -66,6 +87,14 @@ export default {
   }
   #pd-list {
     height: 100%;
+  }
+  #pd-html {
+    padding: 40px;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  #pd-html pre {
+    width: 100%;
   }
 }
 #pd-window {
@@ -122,7 +151,7 @@ export default {
   background-color: #eee;
   padding: 20px 15px;
   box-sizing: border-box;
-  background-image: url("//hbfile.b0.upaiyun.com/img/home/banner/8e4250cfdc09ada434ee58540106c49070bd6ac6d551f");
+  background-image: url("http://img.zcool.cn/community/012cad59572a46a8012193a3c3048e.jpg@900w_1l_2o_100sh.jpg");
   background-size: cover;
 }
 #pd-title {
@@ -136,7 +165,46 @@ export default {
 #pd-wrap {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
-  width: 50%;
+}
+#pd-html {
+  width: 100%;
+  box-sizing: border-box;
+  color: #444;
+}
+#pd-html img {
+  width: 100%;
+}
+#pd-html blockquote {
+  border-left: 5px solid #eee;
+  -webkit-margin-start: 0;
+  padding-left: 10px;
+}
+#pd-html a {
+  color: #67aeeb;
+}
+
+#pd-html pre {
+  background-color: #eee;
+  padding: 0px 5px;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+#pd-html pre code {
+  color: #67aeeb;
+  margin: 0;
+  padding: 0;
+}
+#pd-html h1:before,
+#pd-html h2:before {
+  content: '#';
+  margin-right: 5px;
+}
+#pd-html h1,
+#pd-html h2 {
+  font-weight: normal;
+}
+#pd-html ol {
+  -webkit-padding-start: 20px;
 }
 @keyframes window-in {
   from {

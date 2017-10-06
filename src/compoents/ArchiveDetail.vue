@@ -10,7 +10,8 @@
           </div>
         </div>
         <div id="ar-list">
-          <Post :posts="posts" :loading="loading" noMore=true />
+          <Post :posts="posts" :loading="loading" noMore=true 
+            v-on:readPost="read"/>
         </div>
       </div>
     </div>
@@ -38,6 +39,9 @@ export default {
     close () {
       this.$emit('closeArchiveWindow')
     },
+    read (post) {
+      this.$emit('readPost', post)
+    }
   },
   components: {
     Post

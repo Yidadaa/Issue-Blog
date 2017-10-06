@@ -2,7 +2,7 @@
   <div class="posts">
     <div class="post" v-for="(post, index) in posts" 
       :key="post.id" v-bind:data-index="index"
-      @click="readPost(index)">
+      @click="readPost(post)">
     <div class="post-header">
         <span class="user-img">
         <img v-bind:src="post.user.avatar_url">
@@ -23,7 +23,7 @@
     </div>
     <div class="post-footer">
         <span class="icon-folder-open post-icon" v-if="post.milestone">
-          / {{post.milestone.title}} /
+          # {{post.milestone.title}} #
         </span>
         <span class="icon-price-tags post-icon" v-if="post.labels.length"></span>
         <span class="post-tags">
@@ -45,8 +45,8 @@
 export default {
   props: ['posts', 'loading', 'noMore'],
   methods: {
-    readPost (index) {
-      this.$emit('readPost', index)
+    readPost (post) {
+      this.$emit('readPost', post)
     },
     loadMorePosts () {
       this.$emit('loadMorePosts')
@@ -75,7 +75,7 @@ export default {
   font-size: 14px;
   border-bottom: 1px dotted #eee;
   padding-bottom: 10px;
-  color: #666;
+  color: #999;
   align-items: center;
 }
 
@@ -84,7 +84,7 @@ export default {
   border-top: 1px dotted #eee;
   padding-top: 10px;
   font-size: 12px;
-  color: #666;
+  color: #999;
   overflow: auto;
 }
 
@@ -190,7 +190,6 @@ export default {
   font-size: 18px;
   padding-bottom: 5px;
   margin-bottom: 5px;
-  font-weight: bold;
 }
 
 .post-comments {

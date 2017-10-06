@@ -5,7 +5,7 @@
       <span id="hot-en">——Hot Articles</span>
     </div>
     <div class="loading" v-if="hotPosts.length == 0"></div>
-    <div class="hot-post" v-for="(post, index) in hotPosts" :key="index">
+    <div class="hot-post" v-for="(post, index) in hotPosts" :key="index" @click="read(post)">
       <span class="hot-index">{{index + 1}}. </span>
       <span class="hot-title">{{post.title}}</span>
     </div>
@@ -13,7 +13,12 @@
 </template>
 <script>
 export default {
-  props: ['hotPosts']
+  props: ['hotPosts'],
+  methods: {
+    read (post) {
+      this.$emit('readPost', post)
+    }
+  }
 }
 </script>
 <style>

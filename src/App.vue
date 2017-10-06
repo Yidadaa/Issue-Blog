@@ -4,7 +4,6 @@
       <div class="layout" id="links">
         <a href="./">主页</a>
         <a href="">关于</a>
-        <a href="">介绍</a>
         <a href="">Github</a>
       </div>
     </div>
@@ -15,7 +14,7 @@
       <div id="archives">
         <Archives :milestones="archives" v-on:openArchiveWindow="openArchiveWindow"/>
         <div class="ls-hidden hot-articles">
-          <Hot :hotPosts="hotPosts"/>
+          <Hot :hotPosts="hotPosts" v-on:readPost="readPost"/>
         </div>
       </div>
       <div id="post-container">
@@ -24,13 +23,19 @@
           v-on:loadMorePosts="loadPosts"/>
       </div>
       <div class="xs-hidden hot-articles">
-        <Hot :hotPosts="hotPosts"/>
+        <Hot :hotPosts="hotPosts" v-on:readPost="readPost"/>
       </div>
     </div>
     <ArchiveDetail v-if="showArchive" :archive="showingArchive"
-      v-on:closeArchiveWindow="closeArchiveWindow"/>
+      v-on:closeArchiveWindow="closeArchiveWindow"
+      v-on:readPost="readPost"/>
     <PostDetail v-if="showPost" :post="showingPost"
       v-on:closePostWindow="closePostWindow"/>
+    <div id="footer">
+      <div id="footer-wrap">
+        - The End -
+      </div>
+    </div>
   </div>
 
 </template>
@@ -53,22 +58,16 @@ export default {
       archives: [], // 分类
       hotPosts: [], // 热门文章
 
-      readingPost: false, // 是否打开阅读窗口
-      readingPostIndex: -1,
-
       showArchive: false, // 是否打开分类窗口
       showArchiveIndex: -1,
 
       showPost: true, // 查看文章内容
-      showPostIndex: 0 // 文章详情
+      showingPost: {} // 文章详情
     }
   },
   computed: {
     showingArchive() {
       return this.archives[this.showArchiveIndex]
-    },
-    showingPost() {
-      return this.posts[this.showPostIndex]
     }
   },
   methods: {
@@ -113,9 +112,9 @@ export default {
         this.hotPosts = hotPosts.length > 5 ? hotPosts.slice(0, 5) : hotPosts // 只取前五个
       })
     },
-    readPost (index) {
-      this.readingPost = true
-      this.readingPostIndex = index
+    readPost (post) {
+      this.showingPost = post
+      this.openPostWindow()
     },
     closeArchiveWindow () {
       this.showArchive = false
@@ -161,7 +160,7 @@ export default {
   #motto {
     font-size: 60px;
     margin-bottom: -25px;
-    font-weight: bold;
+    font-weight: lighter;
   }
   #archives {
     width: 100%;
@@ -288,5 +287,22 @@ body {
 
 .hot-articles {
   width: 100%;
+}
+
+#footer {
+  height: 100px;
+  background-image: url("//hbfile.b0.upaiyun.com/img/home/banner/298258a2967dbfcf3cdc4fdcc6daa472ce1c2e2bd35d6");
+  background-size: cover;
+  background-position-x: center;
+}
+
+#footer-wrap {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-size: 30px;
+  height: 100%;
+  line-height: 100px;
+  color: #fff;
+  font-weight: lighter;
 }
 </style>
