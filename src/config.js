@@ -5,7 +5,7 @@ const urls = {
   issue: `${rootPath}issues`,
   comment: `${rootPath}issues/{number}/comments`,
   milestones: `${rootPath}milestones`,
-  msPost: `${rootPath}issues?milestone={number}`
+  msPost: `${rootPath}issues?milestone={number}`,
 }
 export {
   urls

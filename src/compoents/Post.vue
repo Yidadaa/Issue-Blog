@@ -1,6 +1,8 @@
 <template>
   <div class="posts">
-    <div class="post" v-for="(post, index) in posts" :key="post.id" v-bind:data-index="index">
+    <div class="post" v-for="(post, index) in posts" 
+      :key="post.id" v-bind:data-index="index"
+      @click="readPost(index)">
     <div class="post-header">
         <span class="user-img">
         <img v-bind:src="post.user.avatar_url">
@@ -32,28 +34,38 @@
         </span>
     </div>
     </div>
-    <div class="load-more">
+    <div class="load-more" @click="loadMorePosts()">
       <div class="loading" v-if="loading"></div>
-      <div v-else>加载更多</div>
+      <div v-else>- {{noMore ? '没有更多了' : '加载更多'}} -</div>
     </div>
   </div>
 </template>
 <script>
 
 export default {
-  props: ['posts', 'loading'],
+  props: ['posts', 'loading', 'noMore'],
+  methods: {
+    readPost (index) {
+      this.$emit('readPost', index)
+    },
+    loadMorePosts () {
+      this.$emit('loadMorePosts')
+    }
+  }
 }
 </script>
 
 <style>
+
 .load-more {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
   background-color: #fff;
-  margin: 15px 0;
   padding: 15px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
-  color: #42b983;
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05);
+  color: #aaa;
+  cursor: pointer;
 }
 
 .post-header {
@@ -154,16 +166,19 @@ export default {
 
 .post {
   text-align: left;
-  margin-top: 10px;
+  margin-top: 0px;
   background-color: #fff;
   padding: 15px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  padding-bottom: 10px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .post-img {
   width: 25%;
   max-height: 150px;
   overflow: hidden;
+  display: none;
 }
 
 .post-img img {

@@ -3,6 +3,9 @@
     <div id="nav">
       <div class="layout" id="links">
         <a href="./">主页</a>
+        <a href="">关于</a>
+        <a href="">介绍</a>
+        <a href="">Github</a>
       </div>
     </div>
     <div id="banner">
@@ -10,49 +13,89 @@
     </div>
     <div class="layout" id="main-container">
       <div id="archives">
-        <Archives :milestones="archives"/>
+        <Archives :milestones="archives" v-on:openArchiveWindow="openArchiveWindow"/>
         <div class="ls-hidden hot-articles">
+          <Hot :hotPosts="hotPosts"/>
         </div>
       </div>
       <div id="post-container">
-        <Post :posts="posts" :loading="loadingPost"/>
+        <Post :posts="posts" :loading="loadingPost" :noMore="noMore"
+          v-on:readPost="readPost"
+          v-on:loadMorePosts="loadPosts"/>
       </div>
-      <div class="xs-hidden hot-articles">fsafsdfs</div>
+      <div class="xs-hidden hot-articles">
+        <Hot :hotPosts="hotPosts"/>
+      </div>
     </div>
+    <ArchiveDetail v-if="showArchive" :archive="showingArchive"
+      v-on:closeArchiveWindow="closeArchiveWindow"/>
+    <PostDetail v-if="showPost" :post="showingPost"
+      v-on:closePostWindow="closePostWindow"/>
   </div>
+
 </template>
 <script>
 import {urls} from './config'
-import Post from './compoents/post.vue'
-import Archives from './compoents/archives.vue'
+import Post from './compoents/Post.vue'
+import Archives from './compoents/Archives.vue'
+import Hot from './compoents/Hot.vue'
+import ArchiveDetail from './compoents/ArchiveDetail.vue'
+import PostDetail from './compoents/PostDetail.vue'
 
 export default {
   name: 'blog',
   data () {
     return {
-      posts: [],
-      loadingPost: false,
-      archives: []
+      posts: [], // 文章列表
+      loadingPost: false, // 是否在加载文章
+      curPage: 1, // 当前页
+      noMore: false, // 没有更多了
+      archives: [], // 分类
+      hotPosts: [], // 热门文章
+
+      readingPost: false, // 是否打开阅读窗口
+      readingPostIndex: -1,
+
+      showArchive: false, // 是否打开分类窗口
+      showArchiveIndex: -1,
+
+      showPost: true, // 查看文章内容
+      showPostIndex: 0 // 文章详情
+    }
+  },
+  computed: {
+    showingArchive() {
+      return this.archives[this.showArchiveIndex]
+    },
+    showingPost() {
+      return this.posts[this.showPostIndex]
     }
   },
   methods: {
-    loadPosts (page) {
-      const reg = /\!\[.*\]\((.*)\)/
+    loadPosts () {
       const url = urls.issue
+      if (this.noMore) return // 没有更多内容了
 
       this.loadingPost = true
-      fetch(url + '?page=' + page).then(res => res.json()).then(res => {
+      fetch(url + '?page=' + this.curPage).then(res => res.json()).then(res => {
         const posts = res.map(post => {
+          const reg = /\!\[.*\]\((.*)\)/
           const match = post.body.match(reg); // 找出文中第一张图
-          const sliceNum = 300
+          const sliceNum = 150
           const cnchars = (post.body.slice(0, sliceNum).match(/[^\x00-\xff]/g) || '').length
+          // console.log(cnchars)
           return Object.assign({}, post, {
-            short: post.body.slice(0, sliceNum - cnchars)
+            short: post.body.slice(0, sliceNum - parseInt(cnchars / 2))
                 .replace(/[\*\#\-\`\>]/g, ' ') + '...',
             image: match && match[1]
           })
         })
-        this.posts = posts
+        if (res.length > 0) {
+          this.curPage ++
+        } else {
+          this.noMore = true
+        }
+        this.posts = [].concat(this.posts, posts)
         this.loadingPost = false
       })
     },
@@ -62,19 +105,47 @@ export default {
       fetch(url).then(res => res.json()).then(res => {
         this.archives = res
       })
+    },
+    loadHotPosts () {
+      const url = urls.issue
+      fetch(url + '?sort=comments').then(res => res.json()).then(res => {
+        const hotPosts = res.filter(post => post.comments > -1) // 过滤掉没有评论的
+        this.hotPosts = hotPosts.length > 5 ? hotPosts.slice(0, 5) : hotPosts // 只取前五个
+      })
+    },
+    readPost (index) {
+      this.readingPost = true
+      this.readingPostIndex = index
+    },
+    closeArchiveWindow () {
+      this.showArchive = false
+      this.showArchiveIndex = -1
+    },
+    openArchiveWindow (index) {
+      this.showArchive = true
+      this.showArchiveIndex = index
+    },
+    closePostWindow () {
+      this.showPost = false
+      this.showPostIndex = -1
+    },
+    openPostWindow (index) {
+      this.showPost = true
+      this.showPostIndex = index
     }
   },
   created () {
     this.loadPosts(0)
     this.loadArchives()
+    this.loadHotPosts()
   },
   components: {
-    Post, Archives
+    Post, Archives, Hot, ArchiveDetail, PostDetail
   }
 }
 </script>
 <style>
-@import './animation.css';
+@import './style/animation.css';
 
 @media screen and (max-width: 768px){
   /*手机屏幕 <768px*/
@@ -85,14 +156,15 @@ export default {
     padding: 0 20px;
   }
   #banner {
-    height: 300px;
+    height: 250px;
   }
   #motto {
     font-size: 60px;
+    margin-bottom: -25px;
+    font-weight: bold;
   }
   #archives {
     width: 100%;
-    padding: 5px 10px;
     box-sizing: border-box;
   }
   #main-container {
@@ -142,22 +214,27 @@ export default {
 }
 body {
   margin: 0;
+  font-family: "helvetica neue",arial,sans-serif;
 }
 #nav {
-  position: fixed;
+  position: absolute;
   width: 100%;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 0.5);
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 #links {
-  line-height: 50px;
+  line-height: 40px;
+  box-sizing: border-box;
+  padding: 0 15px;
 }
 #links a {
   color: #eee;
+  font-size: 16px;
   position: relative;
   padding-bottom: 5px;
   margin-right: 10px;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+  text-decoration: none;
 }
 
 #links a:after {
@@ -211,6 +288,5 @@ body {
 
 .hot-articles {
   width: 100%;
-  background-color: blue;
 }
 </style>

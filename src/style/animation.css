@@ -5,7 +5,6 @@
   overflow: hidden;
   position: relative;
   text-align: center;
-  color: #42b983;
   padding-bottom: 5px;
 }
 
@@ -19,7 +18,7 @@
   height: 5px;
   width: 100px;
   animation: loading infinite 2s ease-in-out;
-  background-color: #42b983;
+  background-color: #fe7b07;
 }
 
 .loading:before {}
