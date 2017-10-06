@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: ['whatwg-fetch', './src/main.js'],
+  entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -19,7 +19,6 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -43,6 +42,7 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     disableHostCheck: true,
+    port: 8000,
     host: '0.0.0.0'
   },
   performance: {
@@ -61,7 +61,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
+      sourceMap: true,
       compress: {
         warnings: false
       }

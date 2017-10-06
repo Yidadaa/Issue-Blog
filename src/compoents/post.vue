@@ -1,71 +1,47 @@
 <template>
   <div class="posts">
-    <Milestones/>
-    <transition-group v-on:beforeEnter="beforeEnter">
-      <div class="post" v-for="(post, index) in posts" :key="post.id" v-bind:data-index="index">
-        <div class="post-header">
-          <span class="user-img">
-            <img v-bind:src="post.user.avatar_url">
-          </span>
-          <span class="user-name">{{post.user.login}}</span>
-          <span class="post-time">{{new Date(post.created_at).toLocaleDateString().replace(/\//g, '-')}}</span>
+    <div class="post" v-for="(post, index) in posts" :key="post.id" v-bind:data-index="index">
+    <div class="post-header">
+        <span class="user-img">
+        <img v-bind:src="post.user.avatar_url">
+        </span>
+        <span class="user-name">{{post.user.login}}</span>
+        <span class="post-time">{{new Date(post.created_at).toLocaleDateString().replace(/\//g, '-')}}</span>
+    </div>
+    <div class="post-content-wrap">
+        <div class="post-content">
+        <div class="post-title">
+            {{post.title}}
         </div>
-        <div class="post-content-wrap">
-          <div class="post-content">
-            <div class="post-title">
-              <router-link v-bind:to="'/post/'+post.number">
-                {{post.title}}
-              </router-link>
-            </div>
-            <div class="post-short" v-html="post.short"></div>
-          </div>
-          <div class="post-img" v-if="post.image">
-            <img v-bind:src="post.image">
-          </div>
+        <div class="post-short" v-html="post.short"></div>
         </div>
-        <div class="post-footer">
-          <span class="icon-folder-open post-icon" v-if="post.milestone">
-            {{post.milestone.title}}
-          </span>
-          <span class="icon-price-tags post-icon" v-if="post.labels.length"></span>
-          <span class="post-tags">
+        <div class="post-img" v-if="post.image">
+        <img v-bind:src="post.image">
+        </div>
+    </div>
+    <div class="post-footer">
+        <span class="icon-folder-open post-icon" v-if="post.milestone">
+          / {{post.milestone.title}} /
+        </span>
+        <span class="icon-price-tags post-icon" v-if="post.labels.length"></span>
+        <span class="post-tags">
             <span class="post-tag" v-for="label in post.labels" v-bind:key="label.id">{{label.name}}</span>
-          </span>
-          <span class="post-comments icon-bubbles3">
-            {{` ${post.comments}`}}
-          </span>
-        </div>
-      </div>
-    </transition-group>
-    <div class="load-more" @click="loadMore">
+        </span>
+        <span class="post-comments icon-bubbles3">
+            {{` ${post.comments} 条评论`}}
+        </span>
+    </div>
+    </div>
+    <div class="load-more">
       <div class="loading" v-if="loading"></div>
       <div v-else>加载更多</div>
     </div>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
-import Position from './Position.vue';
-import marked from 'marked';
-import Milestones from './Milestones.vue';
 
 export default {
-  computed: mapState({
-    posts: state => state.posts,
-    loading: state => state.loading
-  }),
-  methods: {
-    beforeEnter(el) {
-      el.style.transitionDelay = el.dataset.index * 100 + 'ms';
-    },
-    loadMore() {
-      this.$store.dispatch('loadNewPosts');
-    }
-  },
-  mixins: [Position],
-  components: {
-    Milestones
-  }
+  props: ['posts', 'loading'],
 }
 </script>
 
@@ -172,6 +148,10 @@ export default {
   opacity: 0;
 }
 
+.post:first-child {
+  margin-top: 0;
+}
+
 .post {
   text-align: left;
   margin-top: 10px;
@@ -197,5 +177,8 @@ export default {
   margin-bottom: 5px;
   font-weight: bold;
 }
-</style>
 
+.post-comments {
+  float: right;
+}
+</style>
