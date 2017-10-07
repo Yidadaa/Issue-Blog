@@ -2,11 +2,11 @@
   <div id="pd-window">
     <div id="pd-container">
       <div id="pd-close-btn" @click="close()"></div>
-      <div id="pd-content" v-if="true">
+      <div id="pd-content">
         <div id="pd-info">
           <div id="pd-wrap">
             <div id="pd-title">{{post.title}}</div>
-            <div id="pd-desc"># {{post.milestone.title}} #</div>
+            <div id="pd-desc"># {{post.milestone && post.milestone.title}} #</div>
           </div>
         </div>
         <div id="pd-html" v-html="content"></div>
@@ -61,7 +61,6 @@ export default {
   }
   #pd-html pre {
     overflow-x: scroll;
-    width: 100%;
   }
   #pd-container {
     height: 100%;
@@ -184,26 +183,25 @@ export default {
 }
 
 #pd-html pre {
-  background-color: #eee;
-  padding: 0px 5px;
-  margin: 0 5px;
-  border-radius: 5px;
+  background: #f8f8f8;
+  font-size: 1rem;
+  padding: .67rem 1.3rem;
+  margin: 0;
+  box-sizing: border-box;
 }
 #pd-html pre code {
-  color: #67aeeb;
-  margin: 0;
-  padding: 0;
+  color: #666;
 }
 #pd-html h1:before,
 #pd-html h2:before {
-  content: '#';
   margin-right: 5px;
 }
 #pd-html h1,
 #pd-html h2 {
   font-weight: normal;
 }
-#pd-html ol {
+#pd-html ol,
+#pd-html ul {
   -webkit-padding-start: 20px;
 }
 

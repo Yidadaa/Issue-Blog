@@ -2,9 +2,9 @@
   <div>
     <div id="nav">
       <div class="layout" id="links">
-        <a href="./">主页</a>
-        <a href="">关于</a>
-        <a href="">Github</a>
+        <a :href="link[1]" v-for="(link, index) in links" :key="index">
+          {{link[0]}}
+        </a>
       </div>
     </div>
     <div id="banner">
@@ -32,9 +32,16 @@
     <PostDetail v-if="showPost" :post="showingPost"
       v-on:closePostWindow="closePostWindow"/>
     <div id="footer">
-      <div id="footer-wrap">
-        - The End -
+      <div class="layout" id="footer-content">
+        <div class="footer-info">
+          Theme by <a href="https://github.com/Yidadaa/issue-blog">ISSUE-BLOG</a>.
+        </div>
+        <div class="footer-links">
+          <span>友情♂链接:</span>
+          <a :href="link[1]" v-for="(link, index) in friendLinks" :key="index">{{link[0]}}</a>
+        </div>
       </div>
+      <div id="footer-wrap"></div>
     </div>
   </div>
 
@@ -72,13 +79,19 @@ export default {
       showArchive: false, // 是否打开分类窗口
       showArchiveIndex: -1,
 
-      showPost: true, // 查看文章内容
+      showPost: false, // 查看文章内容
       showingPost: {} // 文章详情
     }
   },
   computed: {
-    showingArchive() {
+    showingArchive () {
       return this.archives[this.showArchiveIndex]
+    },
+    links () {
+      return window.links
+    },
+    friendLinks () {
+      return window.friendLinks
     }
   },
   methods: {
@@ -160,6 +173,7 @@ export default {
 </script>
 <style>
 @import './style/animation.css';
+@import './style/global.css';
 
 @media screen and (max-width: 768px){
   /*手机屏幕 <768px*/
@@ -189,6 +203,12 @@ export default {
   }
   .ls-hidden {
     display: none;
+  }
+  #footer-content {
+    justify-content: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    font-size: 0.8rem;
   }
 }
 @media screen and (max-width: 1200px){
@@ -225,11 +245,12 @@ export default {
   .xs-hidden {
     display: none;
   }
+  #footer-content {
+    justify-content: space-between;
+    margin: 20px auto;
+  }
 }
-body {
-  margin: 0;
-  font-family: "helvetica neue",arial,sans-serif;
-}
+
 #nav {
   position: absolute;
   width: 100%;
@@ -305,19 +326,49 @@ body {
 }
 
 #footer {
-  height: 100px;
-  background-image: url("//hbfile.b0.upaiyun.com/img/home/banner/298258a2967dbfcf3cdc4fdcc6daa472ce1c2e2bd35d6");
-  background-size: cover;
-  background-position-x: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2) inset;
 }
 
 #footer-wrap {
-  background-color: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  font-size: 30px;
   height: 100%;
-  line-height: 100px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  background-image: url("//hbfile.b0.upaiyun.com/img/home/banner/298258a2967dbfcf3cdc4fdcc6daa472ce1c2e2bd35d6");
+  background-size: cover;
+  background-position-x: center;
+  box-sizing: border-box;
+  filter: blur(20px) brightness(70%);
+  transform: scale(1.5);
+}
+
+#footer-content {
+  display: flex;
   color: #fff;
-  font-weight: lighter;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  /* border: 2px solid rgba(255, 255, 255, 0.5); */
+  /* background: linear-gradient(to bottom right,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.8)
+  ); */
+  line-height: 1.5;
+}
+.footer-links {
+  margin-left: 10px;
+}
+.footer-info a {
+  color: #fff;
+}
+.footer-links a {
+  color: #fff;
+  margin-right: 5px;
 }
 </style>
