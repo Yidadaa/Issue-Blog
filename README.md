@@ -18,8 +18,16 @@
   <body>
     <div id="app"></div>
     <script>
-      window.username = 'Yidadaa'
-      window.reponame = 'Yidadaa.github.io'
+      window.username = 'Yidadaa' // 你的 github 账户名
+      window.reponame = 'Yidadaa.github.io' // 你用来存放博客的仓库名
+      window.links = [
+        // 头部导航链接
+        ['主页', 'http://blog.simplenaive.cn']
+      ]
+      window.friendLinks = [
+        // 友情链接
+        ['DragonZZZ', 'http://dragonzzzz.github.io']
+      ]
     </script>
     <script src="https://cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
     <script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
@@ -27,6 +35,8 @@
   </body>
 </html>
 ```
+然后根据情况，修改 21 行之后的配置项，就可以开始用了。
+书写博客：在你之前配置的`window.reponame`所指的仓库中提交 issue ，就相当于写博客了，别人评论你的博客，你可以通过 github 的邮件得到通知，十分方便。
 对，就这么简单。
 
 ## 开发指南
