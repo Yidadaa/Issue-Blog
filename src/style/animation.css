@@ -44,3 +44,14 @@
     opacity: 0;
   }
 }
+
+@keyframes window-in {
+  from {
+    transform: translateY(-1000px) scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scaleX(1);
+    opacity: 1;
+  }
+}

@@ -47,6 +47,17 @@ import Hot from './compoents/Hot.vue'
 import ArchiveDetail from './compoents/ArchiveDetail.vue'
 import PostDetail from './compoents/PostDetail.vue'
 
+const preventWindowScroll = () => {
+  // 阻止弹窗弹出时，窗口滚动
+  const [posx, posy] = [window.scrollX, window.scrollY]
+  window.onscroll = () => window.scrollTo(posx, posy)
+}
+
+const allowWindowScroll = () => {
+  // 允许窗口滚动
+  window.onscroll = null
+}
+
 export default {
   name: 'blog',
   data () {
@@ -117,18 +128,22 @@ export default {
       this.openPostWindow()
     },
     closeArchiveWindow () {
+      allowWindowScroll()
       this.showArchive = false
       this.showArchiveIndex = -1
     },
     openArchiveWindow (index) {
+      preventWindowScroll()
       this.showArchive = true
       this.showArchiveIndex = index
     },
     closePostWindow () {
+      allowWindowScroll()
       this.showPost = false
       this.showPostIndex = -1
     },
     openPostWindow (index) {
+      preventWindowScroll()
       this.showPost = true
       this.showPostIndex = index
     }

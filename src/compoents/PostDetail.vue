@@ -110,7 +110,7 @@ export default {
 #pd-container {
   background-color: #fff;
   box-shadow: 0 50px 200px rgba(0, 0, 0, 0.2);
-  animation: window-in 0.3s ease-in-out;
+  animation: window-in 0.45s ease-in-out;
   position: relative;
 }
 #pd-close-btn {
@@ -206,14 +206,5 @@ export default {
 #pd-html ol {
   -webkit-padding-start: 20px;
 }
-@keyframes window-in {
-  from {
-    transform: translateY(-1000px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+
 </style>
