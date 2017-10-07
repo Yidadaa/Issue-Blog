@@ -38,7 +38,7 @@ export default {
   font-size: 12px;
 }
 .hot-post {
-  padding: 10px;
+  padding: 13px;
   cursor: pointer;
   box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.05);
 }
