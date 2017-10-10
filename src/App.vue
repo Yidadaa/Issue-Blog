@@ -153,15 +153,29 @@ export default {
     closePostWindow () {
       allowWindowScroll()
       this.showPost = false
-      this.showPostIndex = -1
+      this.showingPost = {}
     },
-    openPostWindow (index) {
+    openPostWindow () {
       preventWindowScroll()
       this.showPost = true
-      this.showPostIndex = index
+    },
+    onLoaded () {
+      // 数据加载完成后，如果url有变，跳转到指定post
+      const hash = location.hash.replace('#/', '')
+      if (!hash) return
+      const hashInfo = hash.split('/')
+      if (hashInfo[0] === 'post') {
+        this.loadSinglePost(hashInfo[1]).then(res => res.title && this.readPost(res))
+      }
+    },
+    loadSinglePost (number) {
+      // 加载指定post
+      const url = urls.issue
+      return fetch(`${url}/${number}`).then(res => res.json())
     }
   },
   created () {
+    this.onLoaded() // 判断是否需要加载指定post
     this.loadPosts(0)
     this.loadArchives()
     this.loadHotPosts()

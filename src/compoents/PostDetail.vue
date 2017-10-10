@@ -40,10 +40,14 @@ export default {
         (text,href)=>`<a href='${href}' target='_blank'>${text}</a>`)
     }
   },
-  onCreated () {
+  created () {
     /**Todo:
      * - 加载评论
      */
+    history.pushState({}, '', `/#/post/${this.post.number}`)
+  },
+  destroyed () {
+    history.pushState({}, '', `/#/`)
   }
 }
 </script>
