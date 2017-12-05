@@ -190,6 +190,7 @@ export default {
 }
 #pd-html img {
   width: 100%;
+  cursor: pointer;
 }
 #pd-html blockquote {
   border-left: 5px solid #eee;
