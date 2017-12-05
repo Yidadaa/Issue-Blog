@@ -41,9 +41,10 @@ export default {
       return html;
     },
     clickImg (evt) {
-      const Viewer = window.Viewer;
+      const Viewer = window.Viewer
+      const config = window.viewerConfig
       if (evt.target.nodeName === 'IMG') {
-        const imgViewer = new Viewer(evt.target, { movable: false, toolbar: false, navbar: false })
+        const imgViewer = new Viewer(evt.target, config)
         imgViewer.show()
       }
     }
