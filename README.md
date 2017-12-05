@@ -29,6 +29,23 @@
         // 友情链接
         ['DragonZZZ', 'http://dragonzzzz.github.io']
       ]
+      window.viewerConfig = {
+        // 图片查看器的配置，详情请查阅viewerjs的文档
+        navbar: false,
+        toolbar: {
+          prev: 0,
+          play: { show: 0 },
+          next: 0,
+          rotateLeft: 0,
+          rotateRight: 0,
+          flipHorizontal: 0,
+          flipVertical: 0,
+          zoomIn: 1,
+          zoomOut: 1,
+          oneToOne: 1,
+          reset: 1
+        }
+      }
     </script>
     <script src="https://cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
     <script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
