@@ -9,7 +9,7 @@
             <div id="pd-desc"># {{post.milestone && post.milestone.title}} #</div>
           </div>
         </div>
-        <div id="pd-html" v-html="content"></div>
+        <div id="pd-html" v-html="content" @click="clickImg"></div>
       </div>
     </div>
   </div>
@@ -36,8 +36,16 @@ export default {
     },
     processImg (html) {
       // 处理文章中的图片，变成可点击的链接
-      return html.replace(/<img src="(.*)"\salt(.*)">/g,
-        (text,href)=>`<a href='${href}' target='_blank'>${text}</a>`)
+      // return html.replace(/<img src="(.*)"\salt(.*)">/g,
+      //   (text,href)=>`<a href='${href}' target='_blank'>${text}</a>`)
+      return html;
+    },
+    clickImg (evt) {
+      const Viewer = window.Viewer;
+      if (evt.target.nodeName === 'IMG') {
+        const imgViewer = new Viewer(evt.target, { movable: false, toolbar: false, navbar: false })
+        imgViewer.show()
+      }
     }
   },
   created () {
