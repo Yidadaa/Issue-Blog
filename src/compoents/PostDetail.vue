@@ -16,6 +16,7 @@
 </template>
 <script>
 import marked from 'marked'
+import { urls } from '../config'
 
 export default {
   props: ['post'],
@@ -53,6 +54,8 @@ export default {
     /**Todo:
      * - 加载评论
      */
+    console.log(urls.oAuth)
+    
     history.pushState({}, '', `/#/post/${this.post.number}`)
   },
   destroyed () {

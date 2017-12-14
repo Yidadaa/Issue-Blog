@@ -56,13 +56,19 @@ import PostDetail from './compoents/PostDetail.vue'
 
 const preventWindowScroll = () => {
   // 阻止弹窗弹出时，窗口滚动
-  const [posx, posy] = [window.scrollX, window.scrollY]
-  window.onscroll = () => window.scrollTo(posx, posy)
+  // const [posx, posy] = [window.scrollX, window.scrollY]
+  // window.onscroll = () => window.scrollTo(posx, posy)
+  const before = document.body.clientWidth
+  document.body.style.overflow = 'hidden'
+  const after = document.body.clientWidth
+  document.body.style.paddingRight = `${after - before}px`
 }
 
 const allowWindowScroll = () => {
   // 允许窗口滚动
-  window.onscroll = null
+  // window.onscroll = null
+  document.body.style.overflow = ''
+  document.body.style.paddingRight = `0px`
 }
 
 export default {

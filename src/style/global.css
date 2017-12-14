@@ -16,13 +16,15 @@ body {
 }
 
  ::-webkit-scrollbar-track {
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, .2) inset;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .2) inset;
+          box-shadow: 1px 1px 5px rgba(0, 0, 0, .2) inset;
 }
 
  ::-webkit-scrollbar-thumb {
   min-height: 20px;
   background-clip: content-box;
-  box-shadow: 0 0 0 5px rgba(0, 0, 0, .2) inset;
+  -webkit-box-shadow: 0 0 0 5px rgba(0, 0, 0, .2) inset;
+          box-shadow: 0 0 0 5px rgba(0, 0, 0, .2) inset;
 }
 
  ::-webkit-scrollbar-corner {
