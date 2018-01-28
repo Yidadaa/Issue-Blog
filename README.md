@@ -49,7 +49,7 @@
     </script>
     <script src="https://cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
     <script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
-    <script src="http://blog.simplenaive.cn/issue-blog/dist/build.js"></script>
+    <script src="http://blog.simplenaive.cn/issue-blog/build.js"></script>
     <script src="https://cdn.bootcss.com/viewerjs/0.10.0/viewer.min.js"></script>
   </body>
 </html>
