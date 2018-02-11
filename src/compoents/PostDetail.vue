@@ -22,7 +22,8 @@ export default {
   props: ['post'],
   data () {
     return {
-      comments: []
+      comments: [],
+      oldTitle: ''
     }
   },
   computed: {
@@ -57,9 +58,12 @@ export default {
     console.log(urls.oAuth)
     
     history.pushState({}, '', `/#/post/${this.post.number}`)
+    this.oldTitle = document.title
+    document.title = this.post.title
   },
   destroyed () {
     history.pushState({}, '', `/#/`)
+    document.title = this.oldTitle
   }
 }
 </script>
