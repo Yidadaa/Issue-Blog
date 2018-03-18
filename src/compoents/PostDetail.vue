@@ -153,6 +153,9 @@ export default {
   #comments {
     padding: 40px;
   }
+  #pd-right {
+    overflow-y: scroll;
+  }
 }
 #pd-window {
   position: fixed;
@@ -267,7 +270,6 @@ export default {
 #pd-right {
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
 }
 
 #comments {
