@@ -9,7 +9,25 @@
             <div id="pd-desc"># {{post.milestone && post.milestone.title}} #</div>
           </div>
         </div>
-        <div id="pd-html" v-html="content" @click="clickImg"></div>
+        <div id="pd-right">
+          <div id="pd-html" v-html="content" @click="clickImg"></div>
+          <div id="comments">
+            <div id="comments-info">
+              <span># {{ comments.length }}条评论</span>
+              <a :href="commentURL" class="comment-btn">添加评论</a>
+            </div>
+            <div class="comment" v-for="comment in comments"
+              :key="comment.id">
+              <div class="comment-left">
+                <img :src="comment.user.avatar_url" :alt="comment.user.login" class="comment-avatar">
+              </div>
+              <div class="comment-right">
+                <div class="comment-info">{{ new Date(comment.created_at).toLocaleDateString() }}</div>
+                <div class="comment-content">{{ comment.body }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -23,7 +41,9 @@ export default {
   data () {
     return {
       comments: [],
-      oldTitle: ''
+      oldTitle: '',
+      loading: false,
+      commentURL: urls.newComment.replace('{number}', this.post.number)
     }
   },
   computed: {
@@ -49,17 +69,25 @@ export default {
         const imgViewer = new Viewer(evt.target, config)
         imgViewer.show()
       }
+    },
+    loadComments () {
+      this.loading = true
+      fetch(urls.comment.replace('{number}', this.post.number)).then(res => res.json())
+        .then(res => {
+          this.comments = res
+      })
+      this.loading = false
     }
   },
   created () {
     /**Todo:
      * - 加载评论
      */
-    console.log(urls.oAuth)
     
     history.pushState({}, '', `/#/post/${this.post.number}`)
     this.oldTitle = document.title
     document.title = this.post.title
+    this.loadComments()
   },
   destroyed () {
     history.pushState({}, '', `/#/`)
@@ -97,6 +125,9 @@ export default {
   }
   #pd-title {
   }
+  #comments {
+    padding: 20px;
+  }
 }
 @media screen and (min-width: 768px){
   #pd-info {
@@ -115,11 +146,12 @@ export default {
   }
   #pd-html {
     padding: 40px;
-    height: 100%;
-    overflow-y: scroll;
   }
   #pd-html pre {
     width: 100%;
+  }
+  #comments {
+    padding: 40px;
   }
 }
 #pd-window {
@@ -230,6 +262,64 @@ export default {
 #pd-html ol,
 #pd-html ul {
   -webkit-padding-start: 20px;
+}
+
+#pd-right {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+#comments {
+  border-top: 1px solid #eee;
+}
+
+#comments-info {
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-comment {
+  text-align: center;
+}
+
+.comment {
+  display: flex;
+  border-bottom: 1px #eee dotted;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.comment:last-child {
+  border: 0;
+}
+
+.comment-left {
+  width: 40px;
+}
+
+.comment-avatar {
+  height: 40px;
+  width: 40px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.comment-right {
+  padding-left: 15px;
+  width: 100%;
+}
+
+.comment-info {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 20px;
+}
+
+.comment-btn {
+  color: dodgerblue;
 }
 
 </style>

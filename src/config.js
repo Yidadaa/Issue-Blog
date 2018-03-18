@@ -6,7 +6,8 @@ const urls = {
   comment: `${rootPath}issues/{number}/comments`,
   milestones: `${rootPath}milestones`,
   msPost: `${rootPath}issues?milestone={number}`,
-  oAuth: `https://github.com/login/oauth/authorize?client_id=${clientID}&client_secret=${clientSecret}&redirect_uri={url}&scope=public_repo`
+  oAuth: `https://github.com/login/oauth/authorize?client_id=${clientID}&client_secret=${clientSecret}&redirect_uri={url}&scope=public_repo`,
+  newComment: `https://github.com/${username}/${reponame}/issues/{number}#new_comment_field`
 }
 export {
   urls
