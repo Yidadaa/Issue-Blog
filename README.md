@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <title>Yidadaa的个人博客</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <link href="https://cdn.bootcss.com/viewerjs/0.10.0/viewer.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/viewerjs/0.10.0/viewer.min.css" rel="stylesheet">
   </head>
   <body>
     <div id="app"></div>
@@ -23,7 +23,7 @@
       window.reponame = 'Yidadaa.github.io' // 你用来存放博客的仓库名
       window.links = [
         // 头部导航链接
-        ['主页', 'http://blog.simplenaive.cn']
+        ['主页', 'https://blog.simplenaive.cn']
       ]
       window.friendLinks = [
         // 友情链接
@@ -47,10 +47,10 @@
         }
       }
     </script>
-    <script src="https://cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-    <script src="https://cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
-    <script src="http://blog.simplenaive.cn/Issue-Blog/dist/build.js"></script>
-    <script src="https://cdn.bootcss.com/viewerjs/0.10.0/viewer.min.js"></script>
+    <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
+    <script src="//cdn.bootcss.com/babel-polyfill/6.26.0/polyfill.min.js"></script>
+    <script src="//blog.simplenaive.cn/Issue-Blog/dist/build.js"></script>
+    <script src="//cdn.bootcss.com/viewerjs/0.10.0/viewer.min.js"></script>
   </body>
 </html>
 ```
