@@ -29,6 +29,7 @@
         // 友情链接
         ['DragonZZZ', 'http://dragonzzzz.github.io']
       ]
+      window.motto = 'Yidadaa' // banner的文字
       window.viewerConfig = {
         // 图片查看器的配置，详情请查阅viewerjs的文档
         navbar: false,

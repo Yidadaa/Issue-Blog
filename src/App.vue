@@ -8,7 +8,7 @@
       </div>
     </div>
     <div id="banner">
-      <div id="motto">Yidadaa</div>
+      <div id="motto">{{ motto }}</div>
     </div>
     <div class="layout" id="main-container">
       <div id="archives">
@@ -98,6 +98,9 @@ export default {
     },
     friendLinks () {
       return window.friendLinks
+    },
+    motto () {
+      return window.motto
     }
   },
   methods: {
