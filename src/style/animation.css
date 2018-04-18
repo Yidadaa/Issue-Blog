@@ -55,3 +55,12 @@
     opacity: 1;
   }
 }
+
+@keyframes top-btn-in {
+  from {
+    transform: translateY(100px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
