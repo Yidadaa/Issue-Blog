@@ -61,7 +61,7 @@
 
 ## 使用分类和标签管理博文
 
-本博客可以使用分类和标签管理和归档博文，默认使用 issue 的 milestone 作为仓库名称， issue 的 label 则为博文的 label 。
+本博客可以使用分类和标签管理和归档博文，默认使用 issue 的 milestone 作为类目名称， issue 的 label 则为博文的 label 。
 使用示例可参考： https://github.com/Yidadaa/Yidadaa.github.io/issues
 
 ## 开发指南
