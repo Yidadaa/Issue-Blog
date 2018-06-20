@@ -59,6 +59,11 @@
 书写博客：在你之前配置的`window.reponame`所指的仓库中提交 issue ，就相当于写博客了，别人评论你的博客，你可以通过 github 的邮件得到通知，十分方便。
 对，就这么简单。
 
+## 使用分类和标签管理博文
+
+本博客可以使用分类和标签管理和归档博文，默认使用 issue 的 milestone 作为类目名称， issue 的 label 则为博文的 label 。
+使用示例可参考： https://github.com/Yidadaa/Yidadaa.github.io/issues
+
 ## 开发指南
 
 ``` bash
