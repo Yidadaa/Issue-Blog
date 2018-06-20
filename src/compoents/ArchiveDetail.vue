@@ -30,7 +30,7 @@ export default {
   },
   created () {
     this.loading = true
-    fetch(`${urls.issue}?milestone=${this.archive.number}`).then(res => res.json()).then(res => {
+    fetch(urls.issue.query({ milestone: this.archive.number })).then(res => res.json()).then(res => {
       this.posts = res
       this.loading = false
     })

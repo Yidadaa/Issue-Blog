@@ -72,7 +72,7 @@ export default {
     },
     loadComments () {
       this.loading = true
-      fetch(urls.comment.replace('{number}', this.post.number)).then(res => res.json())
+      fetch(urls.comment.replace({ number: this.post.number })).then(res => res.json())
         .then(res => {
           this.comments = res
       })

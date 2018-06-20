@@ -118,7 +118,7 @@ export default {
       if (this.noMore) return // 没有更多内容了
 
       this.loadingPost = true
-      fetch(url + '?page=' + this.curPage).then(res => res.json()).then(res => {
+      fetch(url.query({ page: this.curPage })).then(res => res.json()).then(res => {
         const posts = res.map(post => {
           const reg = /\!\[.*\]\((.*)\)/
           const match = post.body.match(reg); // 找出文中第一张图
@@ -141,7 +141,7 @@ export default {
       })
     },
     loadArchives () {
-      const url = urls.milestones
+      const url = urls.milestones.url
       if (!url) return
       fetch(url).then(res => res.json()).then(res => {
         this.archives = res
@@ -149,7 +149,7 @@ export default {
     },
     loadHotPosts () {
       const url = urls.issue
-      fetch(url + '?sort=comments').then(res => res.json()).then(res => {
+      fetch(url.query({ sort: 'comments' })).then(res => res.json()).then(res => {
         const hotPosts = res.filter(post => post.comments > -1) // 过滤掉没有评论的
         this.hotPosts = hotPosts.length > 5 ? hotPosts.slice(0, 5) : hotPosts // 只取前五个
       })
@@ -188,7 +188,7 @@ export default {
     },
     loadSinglePost (number) {
       // 加载指定post
-      const url = urls.issue
+      const url = urls.issue.url
       return fetch(`${url}/${number}`).then(res => res.json())
     },
     returnTop () {
