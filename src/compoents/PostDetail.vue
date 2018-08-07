@@ -243,6 +243,7 @@ export default {
 }
 #pd-html a img {
   width: auto;
+  max-width: 100%;
 }
 
 #pd-html pre {
