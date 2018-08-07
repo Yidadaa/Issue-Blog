@@ -11,6 +11,7 @@ class URLWrapper {
    * @param {Object} querys 要查询的字段
    */
   constructor (url, querys) {
+    this.template = url // 模板
     this.url = url
     this.query(querys)
   }
@@ -34,7 +35,7 @@ class URLWrapper {
    */
   replace (payload={}) {
     for (let k in payload) {
-      this.url = this.url.replace(`{${k}}`, payload[k])
+      this.url = this.template.replace(`{${k}}`, payload[k])
     }
     return this.url
   }

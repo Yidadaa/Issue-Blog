@@ -16,6 +16,8 @@
               <span># {{ comments.length }}条评论</span>
               <a :href="commentURL" class="comment-btn">添加评论</a>
             </div>
+            <div class="loading-comment" v-if="loading">评论加载中</div>
+            <div class="loading-comment" v-if="!loading && comments.length === 0">还没有评论</div>
             <div class="comment" v-for="comment in comments"
               :key="comment.id">
               <div class="comment-left">
@@ -43,7 +45,7 @@ export default {
       comments: [],
       oldTitle: '',
       loading: false,
-      commentURL: urls.newComment.replace('{number}', this.post.number)
+      commentURL: urls.newComment.replace({ number: this.post.number })
     }
   },
   computed: {
@@ -75,15 +77,11 @@ export default {
       fetch(urls.comment.replace({ number: this.post.number })).then(res => res.json())
         .then(res => {
           this.comments = res
+          this.loading = false
       })
-      this.loading = false
     }
   },
   created () {
-    /**Todo:
-     * - 加载评论
-     */
-    
     history.pushState({}, '', `/#/post/${this.post.number}`)
     this.oldTitle = document.title
     document.title = this.post.title
@@ -243,6 +241,9 @@ export default {
 #pd-html a {
   color: #67aeeb;
 }
+#pd-html a img {
+  width: auto;
+}
 
 #pd-html pre {
   background: #f8f8f8;
@@ -322,6 +323,12 @@ export default {
 
 .comment-btn {
   color: dodgerblue;
+}
+
+.loading-comment {
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
 }
 
 </style>
