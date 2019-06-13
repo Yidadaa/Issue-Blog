@@ -51,18 +51,24 @@ export default {
   computed: {
     content () {
       return this.post && this.post.body &&
-        this.processImg(marked(this.post.body))
+        this.processMath(marked(this.post.body))
     }
   },
   methods: {
     close () {
       this.$emit('closePostWindow')
     },
-    processImg (html) {
-      // 处理文章中的图片，变成可点击的链接
-      // return html.replace(/<img src="(.*)"\salt(.*)">/g,
-      //   (text,href)=>`<a href='${href}' target='_blank'>${text}</a>`)
-      return html
+    processMath (html) {
+      // 处理文章中的公式，使用katex渲染
+      return html.replace(/\$\$(.*?)\$\$/g, (text, math) => {
+        return window.katex.renderToString(math, {
+          displayMode: true
+        }) // 处理行间公式
+      }).replace(/\$(.*?)\$/g, (text, math) => {
+        return window.katex.renderToString(math, {
+          displayMode: false
+        }) // 处理行内公式
+      })
     },
     clickImg (evt) {
       const Viewer = window.Viewer
