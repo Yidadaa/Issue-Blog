@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-const url = 'yidadaa.github.io'
+const url = 'yidadaa.github.io/Issue-Blog'
 const template = './dist/index.html'
 const readme = './README.md'
 
