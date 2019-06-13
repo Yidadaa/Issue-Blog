@@ -10,7 +10,7 @@
           </div>
         </div>
         <div id="ar-list">
-          <Post :posts="posts" :loading="loading" noMore=true 
+          <Post :posts="posts" :loading="loading" noMore=true
             v-on:readPost="read"/>
         </div>
       </div>

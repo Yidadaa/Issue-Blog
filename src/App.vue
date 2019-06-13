@@ -120,19 +120,19 @@ export default {
       this.loadingPost = true
       fetch(url.query({ page: this.curPage })).then(res => res.json()).then(res => {
         const posts = res.map(post => {
-          const reg = /\!\[.*\]\((.*)\)/
-          const match = post.body.match(reg); // 找出文中第一张图
+          const reg = /!\[.*\]\((.*)\)/
+          const match = post.body.match(reg) // 找出文中第一张图
           const sliceNum = 150
           const cnchars = (post.body.slice(0, sliceNum).match(/[^\x00-\xff]/g) || '').length
           // console.log(cnchars)
           return Object.assign({}, post, {
             short: post.body.slice(0, sliceNum - parseInt(cnchars / 2))
-                .replace(/[\*\#\-\`\>]/g, ' ') + '...',
+              .replace(/[*#\-`>]/g, ' ') + '...',
             image: match && match[1]
           })
         })
         if (res.length > 0) {
-          this.curPage ++
+          this.curPage += 1
         } else {
           this.noMore = true
         }

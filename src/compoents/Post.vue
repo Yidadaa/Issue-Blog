@@ -1,6 +1,6 @@
 <template>
   <div class="posts">
-    <div class="post" v-for="(post, index) in posts" 
+    <div class="post" v-for="(post, index) in posts"
       :key="post.id" v-bind:data-index="index"
       @click="readPost(post)">
     <div class="post-header">

@@ -5,7 +5,7 @@ import { URLWrapper } from './utils'
 
 const { username, reponame, clientID, clientSecret, authToken } = window
 const hostname = 'https://api.github.com'
-const rootPath = `${hostname}/repos/${username}/${reponame}/`;
+const rootPath = `${hostname}/repos/${username}/${reponame}/`
 let urls = {
   issue: `${rootPath}issues`,
   comment: `${rootPath}issues/{number}/comments`,

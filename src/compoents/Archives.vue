@@ -22,13 +22,13 @@ export default {
   },
   methods: {
     style (index) {
-      let len = this.milestones.length;
-      len = len == 0 ? 1 : len;
-      const x = index / len * 100;
-      const y = index / len * 100;
-      const background = `background-position: ${x}% ${y}%`;
-      const delay = `transition-delay: ${index * 100}ms`;
-      return [background, delay].join(';');
+      let len = this.milestones.length
+      len = len === 0 ? 1 : len
+      const x = index / len * 100
+      const y = index / len * 100
+      const background = `background-position: ${x}% ${y}%`
+      const delay = `transition-delay: ${index * 100}ms`
+      return [background, delay].join(';')
     },
     msClick (index) {
       this.$emit('openArchiveWindow', index)

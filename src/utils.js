@@ -20,7 +20,7 @@ class URLWrapper {
    * 将查询的字段封装进URL
    * @param {Object} payload 待查询字段
    */
-  query (payload={}) {
+  query (payload = {}) {
     if (Object.keys(payload).length === 0) return this.url
 
     const payloads = Object.keys(payload).map(k => `${k}=${payload[k]}`).join('&')
@@ -33,7 +33,7 @@ class URLWrapper {
    * 将URL中的可替换字段替换为对应的值
    * @param {Object} payload 待替换字段
    */
-  replace (payload={}) {
+  replace (payload = {}) {
     for (let k in payload) {
       this.url = this.template.replace(`{${k}}`, payload[k])
     }

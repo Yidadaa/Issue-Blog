@@ -50,8 +50,8 @@ export default {
   },
   computed: {
     content () {
-      return this.post && this.post.body 
-        && this.processImg(marked(this.post.body))
+      return this.post && this.post.body &&
+        this.processImg(marked(this.post.body))
     }
   },
   methods: {
@@ -62,7 +62,7 @@ export default {
       // 处理文章中的图片，变成可点击的链接
       // return html.replace(/<img src="(.*)"\salt(.*)">/g,
       //   (text,href)=>`<a href='${href}' target='_blank'>${text}</a>`)
-      return html;
+      return html
     },
     clickImg (evt) {
       const Viewer = window.Viewer
@@ -78,7 +78,7 @@ export default {
         .then(res => {
           this.comments = res
           this.loading = false
-      })
+        })
     }
   },
   created () {
