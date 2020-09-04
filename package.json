@@ -12,7 +12,7 @@
     "publish": "node build/publish.js"
   },
   "dependencies": {
-    "marked": "^0.6.2",
+    "marked": "^1.1.1",
     "vue": "^2.5.2"
   },
   "devDependencies": {
