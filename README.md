@@ -1,3 +1,5 @@
+**该仓库已不再维护，请使用新版本的博客主题：[Issue-Blog-With-Github-Action](https://github.com/Yidadaa/Issue-Blog-With-Github-Action)**
+
 # issue-blog
 
 使用 github 的 issue 系统书写博客，获得完善的 markdown 写作支持，免服务器，响应式布局。
